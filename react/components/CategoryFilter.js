@@ -1,11 +1,10 @@
 import classNames from 'classnames'
-import React, { useContext } from 'react'
+import React from 'react'
 import { injectIntl } from 'react-intl'
 import { IconClose } from 'vtex.styleguide'
 import { NoSSR } from 'vtex.render-runtime'
 import { useCssHandles } from 'vtex.css-handles'
 
-import QueryContext from './QueryContext'
 import Collapsible from './Collapsible'
 import CategoryItem from './CategoryItem'
 
@@ -38,8 +37,12 @@ const getSelectedCategories = rootCategory => {
   return selectedCategories
 }
 
-const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
-  const { map } = useContext(QueryContext)
+const CategoryFilter = ({
+  map,
+  category,
+  shallow = false,
+  onCategorySelect,
+}) => {
   const handles = useCssHandles(CSS_HANDLES)
 
   const selectedCategories = getSelectedCategories(category)
@@ -60,7 +63,7 @@ const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
     }
 
     if (shallow) {
-      onCategorySelect(category)
+      onCategorySelect(map)
     } else {
       // deselect root category
       handleUnselectCategories(0)
